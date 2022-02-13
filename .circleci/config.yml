@@ -19,6 +19,7 @@ parameters:
     type: boolean
     default: true    
 
+
 aliases:
   - &show-current-branch-name
     run:
@@ -37,7 +38,7 @@ aliases:
         sudo apt install gettext-base moreutils -y
       
 jobs:
-  terraform-init-validate-plan-apply-job:
+  deploy_test_infra-job:
     executor: terraform-executor
     steps:      
       - checkout
@@ -80,17 +81,28 @@ jobs:
           command: |            
             terraform init
             terraform destroy --auto-approve
+
+
+
 workflows:
   version: 2
   deploy_test_infra:
     when: << pipeline.parameters.run_infra_build >>
     jobs:      
-      - terraform-init-validate-plan-apply-job:          
+      - deploy_test_infra-job:          
           filters:
             branches:
               only:
                 - develop
-  
+  destroy_test_infra:
+    when: << pipeline.parameters.destroy_test_dev >>
+    jobs:
+      - destroy_test_infra-job:          
+          filters:
+            branches:
+              only:
+                - develop
+
 
 
                 
