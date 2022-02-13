@@ -19,7 +19,6 @@ parameters:
     type: boolean
     default: true    
 
-
 aliases:
   - &show-current-branch-name
     run:
