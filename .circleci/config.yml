@@ -38,7 +38,7 @@ aliases:
         sudo apt install gettext-base moreutils -y
       
 jobs:
-  deploy_test_infra-job:
+  terraform-init-validate-plan-apply-job:
     executor: terraform-executor
     steps:      
       - checkout
@@ -50,14 +50,10 @@ jobs:
             echo "credentials \"app.terraform.io\" {token =
             \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
       - run:
-          name: Fill out template variables in sh files
-          command: |
-            envsubst < script.sh | sponge script.sh
-      - run:
           name: Terraform Validate & Format
           command: |
-            terraform init
-            terraform validate
+            terraform init            
+            terraform validate            
       - run:                  
           name: Terraform Plan & Apply
           command: |
@@ -81,15 +77,12 @@ jobs:
           command: |            
             terraform init
             terraform destroy --auto-approve
-
-
-
 workflows:
   version: 2
   deploy_test_infra:
     when: << pipeline.parameters.run_infra_build >>
     jobs:      
-      - deploy_test_infra-job:          
+      - terraform-init-validate-plan-apply-job:          
           filters:
             branches:
               only:
