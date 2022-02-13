@@ -90,15 +90,7 @@ workflows:
             branches:
               only:
                 - develop
-  destroy_test_infra:
-    when: << pipeline.parameters.destroy_test_dev >>
-    jobs:
-      - destroy_test_infra-job:          
-          filters:
-            branches:
-              only:
-                - develop
-
+  
 
 
                 
