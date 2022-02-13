@@ -50,7 +50,7 @@ jobs:
             echo "credentials \"app.terraform.io\" {token =
             \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
       - run:
-          name: Fill out template variables in yaml files
+          name: Fill out template variables in sh files
           command: |
             envsubst < script.sh | sponge script.sh
       - run:

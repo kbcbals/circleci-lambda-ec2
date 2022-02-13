@@ -3,8 +3,8 @@
 sudo apt-get update
 sudo apt-get install -y curl        
 sudo apt install -y gettext-base
-sudo apt install -y moreutils    
-sudo curl -u ${CIRCLE_PREVIOUS_BUILD_NUM}: -X POST --header "Content-Type: application/json" -d '{ 
+sudo apt install -y moreutils
+sudo curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{ 
     "branch": "develop", 
     "parameters": { 
     "destroy_test_dev": true, 

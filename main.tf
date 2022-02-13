@@ -153,13 +153,13 @@ resource "aws_instance" "inst1" {
 
   provisioner "file" {
     source      = "script.sh"
-    destination = "/tmp/script.sh"
+    destination = "/root/script.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/script.sh",
-      "/tmp/script.sh args",
+      "chmod +x /root/script.sh",
+      "/root/script.sh args",
     ]
   }
  
